@@ -4,7 +4,7 @@
 # DO NOT MAKE CHANGES TO THIS FILE. Instead, modify ci/pipeline.yml.erb and
 # execute build-pipeline-yml.
 #
-# created: 2020-05-11T12:15:00+09:00
+# created: 2020-05-11T13:09:06+09:00
 #
 resource_types:
 - name: file-url
@@ -58,6 +58,14 @@ resources:
     username: ((docker-username))
     password: ((docker-password))
 
+- name: kubernetes-resource-image-1.18
+  type: docker-image
+  source:
+    repository: cappyzawa/kubernetes-resource
+    tag: "1.18"
+    username: ((docker-username))
+    password: ((docker-password))
+
 - name: kubernetes-resource-image-latest
   type: docker-image
   source:
@@ -92,6 +100,12 @@ resources:
   type: file-url
   source:
     url: https://storage.googleapis.com/kubernetes-release/release/stable-1.17.txt
+    filename: version
+
+- name: stable-1.18
+  type: file-url
+  source:
+    url: https://storage.googleapis.com/kubernetes-release/release/stable-1.18.txt
     filename: version
 
 - name: latest
@@ -186,6 +200,28 @@ jobs:
       file: kubernetes-resource-release/ci/tasks/build-build-args-file.yml
       input_mapping: {version: stable-1.17}
     - put: kubernetes-resource-image-1.17
+      params:
+        build: kubernetes-resource-release
+        load_base: ubuntu-18.04
+        build_args_file: output/build-args-file
+
+- name: build-kubernetes-resource-image-1.18
+  public: true
+  serial: true
+  plan:
+  - do:
+    - aggregate:
+      - get: kubernetes-resource-release
+        trigger: true
+      - get: ubuntu-18.04
+        params: {save: true}
+        trigger: true
+      - get: stable-1.18
+        trigger: true
+    - task: build-build-args-file
+      file: kubernetes-resource-release/ci/tasks/build-build-args-file.yml
+      input_mapping: {version: stable-1.18}
+    - put: kubernetes-resource-image-1.18
       params:
         build: kubernetes-resource-release
         load_base: ubuntu-18.04
