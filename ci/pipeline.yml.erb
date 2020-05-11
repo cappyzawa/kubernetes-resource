@@ -14,11 +14,6 @@
 # created: <%= DateTime.now.to_s %>
 #
 resource_types:
-- name: slack-notification
-  type: docker-image
-  source:
-    repository: cfcommunity/slack-notification-resource
-
 - name: file-url
   type: docker-image
   source:
@@ -44,11 +39,6 @@ resources:
     uri: git://github.com/zlabjp/kubernetes-resource.git
     branch: master
     tag_filter: v*
-
-- name: notify
-  type: slack-notification
-  source:
-    url: ((slack-url))
 
 <% kubernetes_versions.each do |version| %>
 - name: <%= image_resource_name(version) %>
@@ -98,22 +88,6 @@ jobs:
         build: kubernetes-resource
         load_base: <%= base_image %>
         build_args_file: output/build-args-file
-    on_success:
-      put: notify
-      params:
-        channel: ((slack-success-channel))
-        username: concourse / <%= image_resource_name("edge") %>
-        icon_emoji: ":dancing-penguin:"
-        text: |
-          Success! $ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
-    on_failure:
-      put: notify
-      params:
-        channel: ((slack-failure-channel))
-        username: concourse / kubernetes-resource:edge
-        icon_emoji: ":rage:"
-        text: |
-          Failure! $ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
 
 <% kubernetes_versions.each do |version| %>
 - name: build-<%= image_resource_name(version) %>
@@ -137,20 +111,4 @@ jobs:
         build: kubernetes-resource-release
         load_base: <%= base_image %>
         build_args_file: output/build-args-file
-    on_success:
-      put: notify
-      params:
-        channel: ((slack-success-channel))
-        username: concourse / <%= image_resource_name(version) %>
-        icon_emoji: ":dancing-penguin:"
-        text: |
-          Success! $ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
-    on_failure:
-      put: notify
-      params:
-        channel: ((slack-failure-channel))
-        username: concourse / <%= image_resource_name(version) %>
-        icon_emoji: ":rage:"
-        text: |
-          Failure! $ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
 <% end %>
