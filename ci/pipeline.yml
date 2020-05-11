@@ -4,7 +4,7 @@
 # DO NOT MAKE CHANGES TO THIS FILE. Instead, modify ci/pipeline.yml.erb and
 # execute build-pipeline-yml.
 #
-# created: 2020-05-11T12:08:12+09:00
+# created: 2020-05-11T12:15:00+09:00
 #
 resource_types:
 - name: file-url
@@ -23,13 +23,13 @@ resources:
 - name: kubernetes-resource
   type: git
   source:
-    uri: git://github.com/cappyzawa/kubernetes-resource.git
+    uri: https://github.com/cappyzawa/kubernetes-resource.git
     branch: master
 
 - name: kubernetes-resource-release
   type: git
   source:
-    uri: git://github.com/cappyzawa/kubernetes-resource.git
+    uri: https://github.com/cappyzawa/kubernetes-resource.git
     branch: master
     tag_filter: v*
 
