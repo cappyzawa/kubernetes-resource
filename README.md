@@ -8,12 +8,12 @@ A Concourse resource for controlling the Kubernetes cluster.
 
 The version of this resource corresponds to the version of kubectl. We recommend using different version depending on the kubernetes version of the cluster.
 
- - `docker.pkg.github.com/cappyzawa/kubernetes-resource/kubernetes-resource:1.19` ([stable-1.19](https://storage.googleapis.com/kubernetes-release/release/stable-1.19.txt))
- - `docker.pkg.github.com/cappyzawa/kubernetes-resource/kubernetes-resource:1.18` ([stable-1.18](https://storage.googleapis.com/kubernetes-release/release/stable-1.18.txt))
- - `docker.pkg.github.com/cappyzawa/kubernetes-resource/kubernetes-resource:1.17` ([stable-1.17](https://storage.googleapis.com/kubernetes-release/release/stable-1.17.txt))
- - `docker.pkg.github.com/cappyzawa/kubernetes-resource/kubernetes-resource:1.16` ([stable-1.16](https://storage.googleapis.com/kubernetes-release/release/stable-1.16.txt))
- - `docker.pkg.github.com/cappyzawa/kubernetes-resource/kubernetes-resource:1.15` ([stable-1.15](https://storage.googleapis.com/kubernetes-release/release/stable-1.15.txt))
- - `docker.pkg.github.com/cappyzawa/kubernetes-resource/kubernetes-resource:latest` ([latest](https://storage.googleapis.com/kubernetes-release/release/latest.txt))
+ - `ghcr.io/cappyzawa/kubernetes-resource:1.19` ([stable-1.19](https://storage.googleapis.com/kubernetes-release/release/stable-1.19.txt))
+ - `ghcr.io/cappyzawa/kubernetes-resource:1.18` ([stable-1.18](https://storage.googleapis.com/kubernetes-release/release/stable-1.18.txt))
+ - `ghcr.io/cappyzawa/kubernetes-resource:1.17` ([stable-1.17](https://storage.googleapis.com/kubernetes-release/release/stable-1.17.txt))
+ - `ghcr.io/cappyzawa/kubernetes-resource:1.16` ([stable-1.16](https://storage.googleapis.com/kubernetes-release/release/stable-1.16.txt))
+ - `ghcr.io/cappyzawa/kubernetes-resource:1.15` ([stable-1.15](https://storage.googleapis.com/kubernetes-release/release/stable-1.15.txt))
+ - `ghcr.io/cappyzawa/kubernetes-resource:latest` ([latest](https://storage.googleapis.com/kubernetes-release/release/latest.txt))
 
 ## Source Configuration
 
